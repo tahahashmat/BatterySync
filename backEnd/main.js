@@ -1,6 +1,6 @@
-var x = 0;
-console.log(x);
 
+var osName;
 
-const y = 5;
-console.log(y);
+osName = process.platform;
+
+console.log(osName);
