@@ -1,14 +1,22 @@
 var child_process = require('child_process');
-const { stdout } = require('process');
 
 var osName;
 
-osName = process.platform;
+switch (process.platform) {
+    case "win32":
+        osName = "Windows";
+        break;
+    case "darvin":
+        osName = "MacOS";
+        break;
+    case "linux":
+        osName = "Linux";
+        break;
+    default:
+        break;
+}
 
-console.log(osName);
+var data = child_process.execSync("wmic Path Win32_Battery get estimatedchargeremaining").toString();
+var batteryPercent = data.substring(29);
 
-child_process.exec("wmic Path Win32_Battery",
-            function execBatteryCommand(err, stdout, stderr) {
-                console.log(stdout);
-});
-console.log("big tiddy goth man");
+console.log("OS Name: " + osName + "\nBattery Percentage: " + batteryPercent);
