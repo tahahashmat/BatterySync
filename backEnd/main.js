@@ -5,14 +5,14 @@ var batteryPercent = null;
 
 switch (process.platform) {
     case "win32":   osName = "Windows"; break;
-    case "darvin":  osName = "MacOS";   break;
+    case "darwin":  osName = "MacOS";   break;
     case "linux":   osName = "Linux";   break;
     default: break;
 }
 
 if (osName == "Windows") {
     batteryPercent = getWindowsBattery();
-} else if (osName == "MacOs") {
+} else if (osName == "MacOS") {
     batteryPercent = getMacOSBattery();
 } else {
     console.log("Waleed gay");
