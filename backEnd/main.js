@@ -1,13 +1,38 @@
 var child_process = require('child_process');
-const { stdout } = require('process');
 
-var osName;
+var osName = "Unknown";
+var batteryPercent = null;
 
-osName = process.platform;
+switch (process.platform) {
+    case "win32":   osName = "Windows"; break;
+    case "darvin":  osName = "MacOS";   break;
+    case "linux":   osName = "Linux";   break;
+    default: break;
+}
 
-console.log(osName);
+if (osName == "Windows") {
+    batteryPercent = getWindowsBattery();
+} else if (osName == "MacOs") {
+    batteryPercent = getMacOSBattery();
+} else {
+    console.log("Waleed gay");
+}
 
-child_process.exec("wmic Path Win32_Battery",
-            function execBatteryCommand(err, stdout, stderr) {
-                console.log(stdout);
-});
+
+function getWindowsBattery() {
+    var data = child_process.execSync("wmic Path Win32_Battery get estimatedchargeremaining").toString();
+    var batteryPercent = data.substring(29);
+
+    return batteryPercent;
+}
+
+function getMacOSBattery() {
+    var data = child_process.execSync('pmset -g batt | egrep "([0-9]+%).*" -o').toString();
+    var arrayData = data.split("%");
+    batteryPercent = arrayData[0];
+
+    return batteryPercent;
+}
+
+console.log("OS Name: " + osName + "\nBattery Percentage: " + batteryPercent);
+
