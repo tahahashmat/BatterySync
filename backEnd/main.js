@@ -1,5 +1,8 @@
 var child_process = require('child_process');
 
+const fetch = require("node-fetch"); // this is for calling api
+
+
 var osName = "Unknown";
 var batteryPercent = null;
 var modelName = "Unknown";
@@ -61,5 +64,25 @@ function getMacOSModel() {
     return modelName;
 }
 
+
 console.log("OS Name: " + osName + "\nBattery Percentage: " + batteryPercent + "\nManufacturer: " + manufacturerName + "\nModel: " + modelName);
+
+fetch('https://us-central1-batterysync-89680.cloudfunctions.net/api/updateBattery', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    body: JSON.stringify({
+        os: osName,
+        batteryPercentage: batteryPercent,
+        manufacturer: manufacturerName,
+        model: modelName
+    })
+}).then(()=> {
+    console.log("hi")
+}).catch((thing)=> {
+    console.log(thing)
+})
+
 
