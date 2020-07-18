@@ -24,7 +24,7 @@ if (osName == "Windows") {
     manufacturerName = "Apple";
     modelName = getMacOSModel();
 } else {
-    console.log("Waleed gay");
+    console.log("Waleed is a nice guy");
 }
 
 function getWindowsBattery() {
