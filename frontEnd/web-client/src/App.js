@@ -31,4 +31,4 @@ function App() {
 
 export default App;
 
-// testing battery
+// testing new componenet
