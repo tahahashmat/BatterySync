@@ -20,3 +20,4 @@ var data = child_process.execSync("wmic Path Win32_Battery get estimatedchargere
 var batteryPercent = data.substring(29);
 
 console.log("OS Name: " + osName + "\nBattery Percentage: " + batteryPercent);
+
