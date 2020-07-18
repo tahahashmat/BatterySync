@@ -39,7 +39,6 @@ if (osName == "Windows") {
     manufacturerName = "Apple";
     modelName = getMacOSModel();
 } else {
-<<<<<<< HEAD
     console.log("Waleed big gay and have small pp");
 }
 
@@ -64,9 +63,6 @@ function hasBattery(currentOS){
         return false;
       }
     }
-=======
-    console.log("Waleed is a nice guy");
->>>>>>> backEnd
 }
 
 function getWindowsBattery() {
