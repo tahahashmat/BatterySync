@@ -64,29 +64,6 @@ if (batteryFlag == true) {
   })
 }
 
-<<<<<<< HEAD
-//check if device has battery, false means no battery
-function hasBattery(currentOS){
-    var data;
-    if(currentOS == "Windows"){
-      data = child_process.execSync("wmic Path Win32_Battery get estimatedchargeremaining").toString();
-      if (typeof(data) == "undefined"){
-        return false;
-      }
-      else{
-        return true;
-      }
-    }
-    else if(currentOS == "MacOS"){
-      data = child_process.execSync('pmset -g batt | egrep "([0-9]+%).*" -o').toString();
-      if (typeof(data) == "undefined"){
-        return false;
-      }
-      else{
-        return true;
-      }
-    }
-=======
 function getCurrentDateTime() {
   var today = new Date();
   var date = today.getDate() + '-' + (today.getMonth()+1) + '-' + today.getFullYear();
@@ -115,7 +92,6 @@ function hasBattery(currentOS) {
     query = child_process.execSync('pmset -g batt | egrep "([0-9]+%).*" -o').toString();
     if (typeof(query) == "undefined") { return false; } else { return true; }
   }
->>>>>>> backEnd
 }
 
 //Windows Functions
