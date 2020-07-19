@@ -7,12 +7,6 @@ body {
   background-color: #2B2D2F;
 }
 
-#tag-line{
-  text-align: center;
-  font-size: 100%;
-  color: #c2c5cc;
-}
-
 #battery-sync-title{
   text-align: center;
 }
@@ -20,13 +14,16 @@ body {
 #logo{
   align-items: center;
   width: 100%;
+  text-align: center;
 }
 
 .login-div{
-  padding-top: 100px;
+  width: auto;
+  padding-top: 0px;
   border-top: 10px;
   border-radius: 10px;
   border-color: black;
+  text-align: center;
 }
 
 .text-input {
@@ -35,9 +32,45 @@ body {
   font-weight: bold;
   border-radius: 8px;
   box-shadow: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 30px;
+  width: 200px;
 }
 
 .label {
   color: #C2C5CC;
   font-weight: bold;
+}
+
+.button {
+  font-size: 20px;
+  background-color: #40444b;
+  border-radius: 40px;
+  padding: 10px;
+  margin-top: 20px;
+  color: #C2C5CC;
+  display: inline-block;
+  width: 35%;
+}
+
+.link{
+  display: block;
+  color: #ffa303;
+  margin-top: 10px;
+}
+
+.footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  /* background-color: #000000; */
+  text-align: center;
+}
+
+#tag-line{
+  font-size: 100%;
+  color: white;
+  /* color: #c2c5cc; */
 }

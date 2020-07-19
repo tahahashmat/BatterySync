@@ -51,7 +51,7 @@ function hasBattery(currentOS){
         return false;
       }
       else{
-        return false;
+        return true;
       }
     }
     else if(currentOS == "MacOS"){
@@ -60,7 +60,7 @@ function hasBattery(currentOS){
         return false;
       }
       else{
-        return false;
+        return true;
       }
     }
 }
