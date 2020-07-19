@@ -26,6 +26,11 @@ body {
   text-align: center;
 }
 
+.label {
+  color: #C2C5CC;
+  font-weight: bold;
+}
+
 .text-input {
   color: #C2C5CC;
   background-color: #262626;
@@ -37,11 +42,6 @@ body {
   height: 25px;
   width: 200px;
   padding: 5px;
-}
-
-.label {
-  color: #C2C5CC;
-  font-weight: bold;
 }
 
 .button {
