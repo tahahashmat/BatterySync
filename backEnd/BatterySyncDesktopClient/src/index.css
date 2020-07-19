@@ -34,8 +34,9 @@ body {
   box-shadow: none;
   margin-top: 10px;
   margin-bottom: 10px;
-  height: 30px;
+  height: 25px;
   width: 200px;
+  padding: 5px;
 }
 
 .label {
@@ -52,12 +53,15 @@ body {
   color: #C2C5CC;
   display: inline-block;
   width: 35%;
+  outline: none;
 }
 
 .link{
+  text-align: center;
   display: block;
   color: #ffa303;
   margin-top: 10px;
+  /* width: 100px; */
 }
 
 .footer{
