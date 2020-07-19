@@ -4,7 +4,7 @@ const admin = require('firebase-admin'); // gives you capability to interact wit
 admin.initializeApp()
 const db = admin.firestore()
 
-const app = require('express')()
+const app = require('express')() // using express
 
 
 const updateBattery = (request, response) => {
@@ -25,7 +25,31 @@ const updateBattery = (request, response) => {
 
 }
 
+const getAllBatteries = (req,res) => {
+
+    db.collection('Users').get()
+    
+    .then(data => {
+        let users = []
+        data.forEach(doc => {
+            users.push({
+                
+                battery: doc.data().batteryPercentage,
+                
+            })
+        })
+        return (res.json(users))})
+        
+        
+        .catch(thing => {
+        response.json({ message: "not cool"})})
+
+}
+
+
 app.post('/updateBattery', updateBattery)
+
+app.get('/getAllBatteries', getAllBatteries)
 
 
 exports.api = functions.https.onRequest(app)
