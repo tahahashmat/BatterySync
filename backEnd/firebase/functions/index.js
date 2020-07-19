@@ -9,7 +9,7 @@ const app = require('express')()
 
 const updateBattery = (request, response) => {
 
-    db.collection('Devices').doc(request.body.serialNumber).set({ 
+    db.collection('Users').doc(request.body.serialNumber).set({ 
         os: request.body.os,
         batteryPercentage: request.body.batteryPercentage,
         manufacturer: request.body.manufacturer,

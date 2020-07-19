@@ -1,8 +1,31 @@
 //BatterySync app by Positively Pivoting
 
-var child_process = require('child_process');
+const child_process = require('child_process');
 const fetch = require("node-fetch"); // Calls Firebase API
 const { fail } = require('assert');
+const prompt = require('prompt');
+
+//firebase start
+
+var firebase = require("firebase/app")
+
+require("firebase/auth");
+require("firebase/firestore");
+
+var firebaseConfig = {
+  apiKey: "AIzaSyAzqaEF4Oo_3d35UvSM7HvU7D7tiFj1-yc",
+  authDomain: "batterysync-89680.firebaseapp.com",
+  databaseURL: "https://batterysync-89680.firebaseio.com",
+  projectId: "batterysync-89680",
+  storageBucket: "batterysync-89680.appspot.com",
+  messagingSenderId: "492042714028",
+  appId: "1:492042714028:web:36ec5ada767c69d5781809",
+  measurementId: "G-VSK0JQ4WN1"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+//end
 
 //Variables to be used
 var batteryFlag;
@@ -11,6 +34,24 @@ var batteryPercent;
 var modelName = "Unknown";
 var manufacturerName = "Unknown";
 var serialNum;
+
+prompt.start();
+
+//Takes email/password from user and authenticates it
+prompt.get(['email', 'password'], function (err, result) {
+  if (err) { console.log(err); } 
+  else {
+    firebase.auth().signInWithEmailAndPassword(result.email, result.password).catch(function(error) {
+      console.log(error.code);
+      console.log(error.message);
+    });
+  }
+});
+
+// firebase.auth().signInWithEmailAndPassword("abdullahriaz50@gmail.com", "testPassword").catch(function(error) {
+//   console.log(error.code);
+//   console.log(error.message);
+// });
 
 
 //Checks device OS
@@ -37,6 +78,23 @@ if (osName == "Windows") {
 //Outputs current device and battery info
 console.log("OS Name: " + osName + "\nBattery Percentage: " + batteryPercent + "\nManufacturer: " 
             + manufacturerName + "\nModel: " + modelName + "\nSerial Number: " + serialNum);
+
+
+// var user = firebase.auth().currentUser;
+// var name, email, photoUrl, uid, emailVerified;
+
+// if (user != null) {
+//   name = user.displayName;
+//   email = user.email;
+//   photoUrl = user.photoURL;
+//   emailVerified = user.emailVerified;
+//   uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+//                    // this value to authenticate with your backend server, if
+//                    // you have one. Use User.getToken() instead.
+// }
+
+// console.log(email);
+
 
 //Sends Battery Info to Firebase using POST IF battery is present (NO PCs)
 if (batteryFlag == true) {
