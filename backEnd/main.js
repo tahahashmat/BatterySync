@@ -3,11 +3,11 @@
 const child_process = require('child_process');
 const fetch = require("node-fetch"); // Calls Firebase API
 const { fail } = require('assert');
-const prompt = require('prompt');
+const prompt = require('prompt-sync')({sigint: true});
 
-//firebase start
-
-var firebase = require("firebase/app")
+//firebase config
+var firebase = require("firebase/app");
+const { registerVersion } = require('firebase/app');
 
 require("firebase/auth");
 require("firebase/firestore");
@@ -25,8 +25,6 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-//end
-
 //Variables to be used
 var batteryFlag;
 var osName = "Unknown";
@@ -35,24 +33,17 @@ var modelName = "Unknown";
 var manufacturerName = "Unknown";
 var serialNum;
 
-prompt.start();
+const choice = prompt("Would you like to create an account or log in? Type create or log: ");
 
-//Takes email/password from user and authenticates it
-prompt.get(['email', 'password'], function (err, result) {
-  if (err) { console.log(err); } 
-  else {
-    firebase.auth().signInWithEmailAndPassword(result.email, result.password).catch(function(error) {
-      console.log(error.code);
-      console.log(error.message);
-    });
-  }
-});
+if (choice == "log") {
+  signIn();
 
-// firebase.auth().signInWithEmailAndPassword("abdullahriaz50@gmail.com", "testPassword").catch(function(error) {
-//   console.log(error.code);
-//   console.log(error.message);
-// });
+} else if (choice == "create") {
+  register();
 
+} else {
+    fail;
+}
 
 //Checks device OS
 switch (process.platform) {
@@ -61,7 +52,6 @@ switch (process.platform) {
     case "linux":  osName = "Linux";   batteryFlag = hasBattery(osName);  break;
     default: console.log("OS could not be detected");              fail;  break; //ends the script
 }
-
 
 if (osName == "Windows") {
     if (batteryFlag == true) { batteryPercent = getWindowsBattery(); }
@@ -80,46 +70,48 @@ console.log("OS Name: " + osName + "\nBattery Percentage: " + batteryPercent + "
             + manufacturerName + "\nModel: " + modelName + "\nSerial Number: " + serialNum);
 
 
-// var user = firebase.auth().currentUser;
-// var name, email, photoUrl, uid, emailVerified;
+function getCurrentUserEmail() {
 
-// if (user != null) {
-//   name = user.displayName;
-//   email = user.email;
-//   photoUrl = user.photoURL;
-//   emailVerified = user.emailVerified;
-//   uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-//                    // this value to authenticate with your backend server, if
-//                    // you have one. Use User.getToken() instead.
-// }
+  var user = firebase.auth().currentUser;
+  var email;
 
-// console.log(email);
+  if (user != null) {
+    email = user.email;
+  }
+
+  return email;
+}
 
 
 //Sends Battery Info to Firebase using POST IF battery is present (NO PCs)
-if (batteryFlag == true) {
+function sendBatteryInfo(batteryFlag) {
+  if (batteryFlag == true) {
 
-  fetch('https://us-central1-batterysync-89680.cloudfunctions.net/api/updateBattery', {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        os: osName,
-        batteryPercentage: batteryPercent,
-        manufacturer: manufacturerName,
-        model: modelName,
-        serialNumber: serialNum,
-        timeUpdated: getCurrentDateTime()
+    var currentEmail = getCurrentUserEmail();
+
+    fetch('https://us-central1-batterysync-89680.cloudfunctions.net/api/updateBattery', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          email: currentEmail,
+          os: osName,
+          batteryPercentage: batteryPercent,
+          manufacturer: manufacturerName,
+          model: modelName,
+          serialNumber: serialNum,
+          timeUpdated: getCurrentDateTime()
+      })
+  
+    }).then(()=> {
+      console.log("Battery info uploaded to Firebase")
+  
+    }).catch((thing)=> {
+      console.log(err)
     })
-
-  }).then(()=> {
-    console.log("Battery info uploaded to Firebase")
-
-  }).catch((thing)=> {
-    console.log(err)
-  })
+  }
 }
 
 function getCurrentDateTime() {
@@ -129,6 +121,36 @@ function getCurrentDateTime() {
   var dateTime = date + " " + time;
 
   return dateTime;
+}
+
+function signIn() {
+  console.log("-----Sign In-----");
+  const email = prompt("Type your email: ");
+  const password = prompt("Type your password: ");
+  
+  firebase.auth().signInWithEmailAndPassword(email, password)
+  .then((result) => {
+    console.log("Signed in!");
+    sendBatteryInfo(batteryFlag);
+
+  }).catch((error) => {
+    console.log(error.message);
+  });
+}
+
+function register() {
+  console.log("-----Register-----");
+  const email = prompt("Type your email: ");
+  const password = prompt("Type your password: ");
+
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+  .then((result) => {
+    console.log("Account created!");
+    sendBatteryInfo(batteryFlag);
+
+  }).catch((error) => {
+    console.log(error.message);
+  });
 }
 
 

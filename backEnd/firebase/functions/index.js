@@ -9,20 +9,19 @@ const app = require('express')() // using express
 
 const updateBattery = (request, response) => {
 
-    db.collection('Users').doc(request.body.serialNumber).set({ 
+    db.collection('Users').doc(request.body.email).collection('Devices').doc(request.body.serialNumber).set({ 
         os: request.body.os,
         batteryPercentage: request.body.batteryPercentage,
         manufacturer: request.body.manufacturer,
         model: request.body.model,
         serialNumber: request.body.serialNumber,
-        timeUpdated: request.body.timeUpdated 
+        timeUpdated: request.body.timeUpdated,
+        email: request.body.email
         
     }).then(thing => {
         response.json({ message: "cool"})
     }).catch(thing => {
         response.json({ message: "not cool"})})
-
-
 }
 
 const getAllBatteries = (req,res) => {
