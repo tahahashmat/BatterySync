@@ -1,20 +1,52 @@
-import React from 'react'
-
+import React, { Fragment, useEffect } from 'react'
 import {useBattery} from 'react-use';
 
 const Batteries = () => {
 
-    const batteryState = useBattery();
+
+
+        useEffect(() => {
+
+            fetch('https://us-central1-batterysync-89680.cloudfunctions.net/api/getAllBatteries').then(()=> {
+            return console.log("dsf")
+        }).catch((thing)=> {
+            console.log(thing)
+        })
+
+          }, [])
+        
+    
 
     return (
-        null
+        <h1> stuff </h1>
+
     )
+}
     
        
 
 export default Batteries
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const batteryState = useBattery();
 
  // if (!batteryState.isSupported) {
         //     return (
@@ -44,4 +76,4 @@ export default Batteries
         //       <strong>Discharging time</strong>:&nbsp;&nbsp; <span>{ batteryState.dischargingTime }</span>
         //     </div>
         //   )
-    }
+    

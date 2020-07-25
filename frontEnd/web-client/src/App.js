@@ -3,14 +3,12 @@ import './App.css';
 
 
 import Navbar from './components/Navbar';
-import Drawer from './components/Drawer';
 import Batteries from './components/Batteries';
 
 function App() {
   return (
     <div className="App">
 
-      <Drawer/>
       <Navbar/>
       <Batteries/>
     
