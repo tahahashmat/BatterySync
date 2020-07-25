@@ -1,7 +1,17 @@
 var username;
 var password;
 
-document.getElementById("loginButton").addEventListener("click", function(){
+document.getElementById("loginButton").addEventListener("click", storeLoginDetailToLocalStorage);
+
+function getUsername(){
+  return document.getElementById('username').value;
+}
+
+function getPassword(){
+  return document.getElementById('password').value;
+}
+
+function storeLoginDetailToLocalStorage(){
   console.log("LOCAL STORAGE :")
   console.log(localStorage.getItem('USERNAME'));
   console.log(localStorage.getItem('PASSWORD'));
@@ -11,12 +21,4 @@ document.getElementById("loginButton").addEventListener("click", function(){
   console.log("Password: " + password);
   localStorage.setItem('USERNAME', username);
   localStorage.setItem('PASSWORD', password);
-});
-
-function getUsername(){
-  return document.getElementById('username').value;
-}
-
-function getPassword(){
-  return document.getElementById('password').value;
 }
