@@ -23,6 +23,7 @@ var firebaseConfig = {
   measurementId: "G-VSK0JQ4WN1"
 };
 
+
 firebase.initializeApp(firebaseConfig);
 
 //Variables to be used
@@ -123,7 +124,7 @@ function getCurrentDateTime() {
   return dateTime;
 }
 
-function signIn() {
+export function signIn() {
   console.log("-----Sign In-----");
   const email = prompt("Type your email: ");
   const password = prompt("Type your password: ");
@@ -138,7 +139,7 @@ function signIn() {
   });
 }
 
-function register() {
+export function register() {
   console.log("-----Register-----");
   const email = prompt("Type your email: ");
   const password = prompt("Type your password: ");

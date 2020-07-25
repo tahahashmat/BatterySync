@@ -1,10 +1,13 @@
-var username;
+// import {register, signIn} from '../../main'
+
+var email;
 var password;
 
 document.getElementById("loginButton").addEventListener("click", storeLoginDetailToLocalStorage);
+document.getElementById("loginButton").addEventListener("click", function(){console.log("Bruh")});
 
-function getUsername(){
-  return document.getElementById('username').value;
+function getEmail(){
+  return document.getElementById('email').value;
 }
 
 function getPassword(){
@@ -13,12 +16,25 @@ function getPassword(){
 
 function storeLoginDetailToLocalStorage(){
   console.log("LOCAL STORAGE :")
-  console.log(localStorage.getItem('USERNAME'));
+  console.log(localStorage.getItem('EMAIL'));
   console.log(localStorage.getItem('PASSWORD'));
-  username = getUsername();
+  email = getEmail();
   password = getPassword();
-  console.log("Username: " + username);
+  console.log("Email: " + email);
   console.log("Password: " + password);
-  localStorage.setItem('USERNAME', username);
+  localStorage.setItem('EMAIL', email);
   localStorage.setItem('PASSWORD', password);
 }
+
+// function login(){
+//   email = getEmail();
+//   password = getPassword();
+//   firebase.auth().signInWithEmailAndPassword(email, password)
+//   .then((result) => {
+//     console.log("Signed in!");
+//     sendBatteryInfo(batteryFlag);
+
+//   }).catch((error) => {
+//     console.log(error.message);
+//   });
+// }
