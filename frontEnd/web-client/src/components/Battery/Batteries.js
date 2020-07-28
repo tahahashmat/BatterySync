@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
 import BatteryIcon from './BatteryIcon'
+import { wrap } from 'module';
 
 
 
@@ -15,22 +16,19 @@ import BatteryIcon from './BatteryIcon'
 const useStyles = makeStyles({
 
     root: {
-        height: "100%",
+        height: "200px",
         color: "white",
         backgroundColor: "#313233",
-        marginTop: "50px",
         width: "45%",
-        marginBottom: 12,
-        fontSize: 14,
-        marginRight: "5%",
+        margin: "30px 15px 30px 15px"
 
+     
         
     },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
+    
+    batteryIcon: {
+      // height: "100%"
+    }
 
   });
 
@@ -51,73 +49,17 @@ const Batteries = () => {
 
           }, [])
         
-    
+const devices = [1, 2, 3];
+
 
     return (
         <Fragment> 
-        <Grid container spacing = {6} >
         <Card className={classes.root}>
         <CardContent>
-          <BatteryIcon/>
-        <Typography className={classes.root} color="textSecondary" gutterBottom>
-          Device
-        </Typography>
-        <Typography variant="h5" component="h2">
-          Battery Level
-        </Typography>
-        <Typography className={classes.root} color="textSecondary">
-          Expand
-        </Typography>
+          <BatteryIcon className={classes.batteryIcon}/>
         </CardContent>
+
         </Card>
-
-
-        <Card className={classes.root}>
-        <CardContent>
-        <BatteryIcon/>
-        <Typography className={classes.root} color="textSecondary" gutterBottom>
-          Device
-        </Typography>
-        <Typography variant="h5" component="h2">
-          Battery Level
-        </Typography>
-        <Typography className={classes.root} color="textSecondary">
-          Expand
-        </Typography>
-        </CardContent>
-        </Card>
-
-            <Card className={classes.root}>
-        <CardContent>
-        <BatteryIcon/>
-        <Typography className={classes.root} color="textSecondary" gutterBottom>
-          Device
-        </Typography>
-        <Typography variant="h5" component="h2">
-          Battery Level
-        </Typography>
-        <Typography className={classes.root} color="textSecondary">
-          Expand
-        </Typography>
-        </CardContent>
-        </Card>
-
-
-        <Card className={classes.root}>
-        <CardContent>
-        <BatteryIcon/>
-        <Typography className={classes.root} color="textSecondary" gutterBottom>
-          Device
-        </Typography>
-        <Typography variant="h5" component="h2">
-          Battery Level
-        </Typography>
-        <Typography className={classes.root} color="textSecondary">
-          Expand
-        </Typography>
-        </CardContent>
-        </Card>
-        </Grid>
         </Fragment>
 
 
