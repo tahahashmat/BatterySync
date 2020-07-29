@@ -2,10 +2,11 @@ import React, { Fragment } from 'react'
 import './LogIn.css'; 
 import { Button } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
-import darkmodeName from '.././images/batterysync dark mode name .png';
-import lightkmodeName from '.././images/batterysync light mode name.png';
-import darkmodeLogo from '.././images/batterysync dark mode logo.png';
-import lightmodeLogo from '.././images/batterysync light mode logo.png';
+import darkmodeName from '.././assets/darkModeName.png';
+import lightkmodeName from '.././assets/lightModeName.png';
+import darkmodeLogo from '.././assets/darkModeLogo.png';
+import lightmodeLogo from '.././assets/lightModeLogo.png';
+
 
 
 const LogIn = () => {

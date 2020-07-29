@@ -1,10 +1,13 @@
 const functions = require("firebase-functions"); //using firebase functions
-
+const cors = require("cors")
 const admin = require("firebase-admin"); // gives you capability to interact with db
+
 admin.initializeApp();
 const db = admin.firestore();
-
 const app = require("express")(); // using express
+
+app.use(cors())
+
 
 const updateBattery = (req, res) => {
   db.collection("Devices")
@@ -21,22 +24,27 @@ const updateBattery = (req, res) => {
       res.json({ message: "not cool" });
     });
 };
+
 const getAllBatteries = (req, res) => {
+
   db.collection("Users")
     .get()
-
     .then((data) => {
-      let users = [];
-      data.forEach((doc) => {
-        users.push({
-          battery: doc.data().batteryPercentage,
-        });
-      });
-      return res.json(users);
+      // let users = [];
+      // data.forEach((doc) => {
+      //   console.log(doc)
+      //   // users.push({
+      //   //   user: doc.data().testF
+      //   // });
+      // });
+      res.json({ message: "cool"});
     })
 
     .catch((thing) => {
-      res.json({ message: "not cool" });
+      console.log("!!!!!!!!!!")
+      console.log(thing)
+      console.log("!!!!!!!!!!")
+      res.json({ message: thing.code});
     });
 };
 const signUp = (req, res) => {
@@ -84,9 +92,15 @@ const signIn = (req, res) => {
     });
 };
 
+const test = (req,res) => {
+  return res.json({ message: "test"})
+}
+
+
 app.post("/updateBattery", updateBattery);
 app.get("/getAllBatteries", getAllBatteries);
 app.post("/signUp", signUp);
 app.post("/signIn", signIn);
+app.get("/test", test);
 
 exports.api = functions.https.onRequest(app);
