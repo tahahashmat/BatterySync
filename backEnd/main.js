@@ -124,7 +124,7 @@ function getCurrentDateTime() {
   return dateTime;
 }
 
-export function signIn() {
+function signIn() {
   console.log("-----Sign In-----");
   const email = prompt("Type your email: ");
   const password = prompt("Type your password: ");
@@ -139,7 +139,7 @@ export function signIn() {
   });
 }
 
-export function register() {
+function register() {
   console.log("-----Register-----");
   const email = prompt("Type your email: ");
   const password = prompt("Type your password: ");

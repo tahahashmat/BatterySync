@@ -78,3 +78,9 @@ body {
   color: white;
   /* color: #c2c5cc; */
 }
+
+#error-text{
+  color: red;
+  margin: auto;
+  padding-top: 2px;
+}
