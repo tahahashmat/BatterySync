@@ -20,7 +20,9 @@ const createWindow = () => {
     },
     width: 480,
     height: 720,
-  });
+    // icon: __dirname + '..\..\..\images\batterysync dark mode logo.png'
+  })
+  mainWindow.removeMenu();
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
