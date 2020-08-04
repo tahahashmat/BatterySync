@@ -73,13 +73,15 @@ h2{
   padding-top: 30px;
 }
 
-.logging-button{
+.syncing-button{
   font-size: 20px;
   padding: 10px 20px 10px 20px;
   width: 60%;
   background-color: #40444b;
   color: #ffa303;
   margin-bottom: 10px;
+  border-radius: 20px;
+  outline: none;
 }
 
 #console{
@@ -93,10 +95,13 @@ h2{
 }
 
 #logout-button{
+  font-size: 15px;
   margin-top: 50px;
-  background-color: #b31212;
+  padding: 5px 20px 5px 20px;
+  background-color: #ffa303;
+  color: white;
   outline: none;
-  border-radius: 0%;
+  border-radius: 20px;
 }
 
 .link{
