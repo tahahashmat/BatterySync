@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
 import { wrap } from "module";
 import Device from "./Device/Device";
+import Navbar from "./Navbar";
 
 const useStyles = makeStyles({
   
@@ -54,6 +55,7 @@ const Devices = () => {
 
   return (
     <Fragment style={{justifyContent: "center"}}>
+      <Navbar/>
       <Grid container >
         {devices}
       </Grid>

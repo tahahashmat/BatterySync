@@ -5,34 +5,29 @@ import Navbar from "./components/Navbar";
 import Devices from "./components/Devices";
 import { Grid } from "@material-ui/core";
 import SignUp from "./components/SignUp";
-import LogIn from "./components/LogIn";
+import SignIn from "./components/SignIn";
 import Home from "./components/Home";
 
-const useStyles = makeStyles({
-  
-});
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Device from "./components/Device/Device";
+
+const useStyles = makeStyles({});
 
 function App() {
   const classes = useStyles();
 
   return (
     <div className="App">
-      <Navbar />
-
-      <Grid container>
-        <Grid item xs={1} />
-        <Grid item xs={10}>
-
-            <Devices />
-
-        </Grid>
-        <Grid item xs={1} />
-      </Grid>
+      <Router>
+        <Switch>
+        <Route exact path="/" component={SignIn} />
+          <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/devices" component={Devices} />
+          <Route exact path="/signup" component={SignUp} />
+        </Switch>
+      </Router>
     </div>
   );
 }
-
-
-
 
 export default App;
