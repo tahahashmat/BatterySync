@@ -35,9 +35,18 @@ ipc.on('show-settings-window', function(event){
   loadSettingsWindow();
 })
 
+ipc.on('show-login-page', function(event){
+  loadLoginPage();
+})
+
 function loadSettingsWindow(){
   mainWindow.setSize(400, 600)
   mainWindow.loadFile(path.join(__dirname, 'settings.html'))
+}
+
+function loadLoginPage(){
+  mainWindow.setSize(480, 720);
+  mainWindow.loadFile(path.join(__dirname, 'index.html'));
 }
 
 // This method will be called when Electron has finished
