@@ -34,42 +34,44 @@ var modelName = "Unknown";
 var manufacturerName = "Unknown";
 var serialNum;
 
-const choice = prompt("Would you like to create an account or log in? Type create or log: ");
+// const choice = prompt("Would you like to create an account or log in? Type create or log: ");
 
-if (choice == "log") {
-  signIn();
+// if (choice == "log") {
+//   signIn();
 
-} else if (choice == "create") {
-  register();
+// } else if (choice == "create") {
+//   register();
 
-} else {
-    fail;
-}
+// } else {
+//     fail;
+// }
 
-//Checks device OS
-switch (process.platform) {
+function getBatteryInfo(){
+    //Checks device OS
+  switch (process.platform) {
     case "win32":  osName = "Windows"; batteryFlag = hasBattery(osName);  break;
     case "darwin": osName = "MacOS";   batteryFlag = hasBattery(osName);  break;
     case "linux":  osName = "Linux";   batteryFlag = hasBattery(osName);  break;
     default: console.log("OS could not be detected");              fail;  break; //ends the script
-}
+  }
 
-if (osName == "Windows") {
+  if (osName == "Windows") {
     if (batteryFlag == true) { batteryPercent = getWindowsBattery(); }
     manufacturerName = getWindowsManufacturer();
     modelName = getWindowsModel();
     serialNum = getWindowsSerialNum();
 
-} else if (osName == "MacOS") {
+  } else if (osName == "MacOS") {
     if (batteryFlag == true) { batteryPercent = getMacOSBattery(); }
     manufacturerName = "Apple";
     modelName = getMacOSModel();   
-}
+  }
 
-//Outputs current device and battery info
-console.log("OS Name: " + osName + "\nBattery Percentage: " + batteryPercent + "\nManufacturer: " 
+  //Outputs current device and battery info
+  console.log("OS Name: " + osName + "\nBattery Percentage: " + batteryPercent + "\nManufacturer: " 
             + manufacturerName + "\nModel: " + modelName + "\nSerial Number: " + serialNum);
 
+}
 
 function getCurrentUserEmail() {
 
@@ -83,12 +85,21 @@ function getCurrentUserEmail() {
   return email;
 }
 
+function getCurrentDateTime() {
+  var today = new Date();
+  var date = today.getDate() + '-' + (today.getMonth()+1) + '-' + today.getFullYear();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var dateTime = date + " " + time;
+
+  return dateTime;
+}
+
 
 //Sends Battery Info to Firebase using POST IF battery is present (NO PCs)
 function sendBatteryInfo(batteryFlag) {
   if (batteryFlag == true) {
-
     var currentEmail = getCurrentUserEmail();
+    getBatteryInfo()
 
     fetch('https://us-central1-batterysync-89680.cloudfunctions.net/api/updateBattery', {
       method: 'POST',
@@ -115,44 +126,36 @@ function sendBatteryInfo(batteryFlag) {
   }
 }
 
-function getCurrentDateTime() {
-  var today = new Date();
-  var date = today.getDate() + '-' + (today.getMonth()+1) + '-' + today.getFullYear();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  var dateTime = date + " " + time;
 
-  return dateTime;
-}
-
-function signIn() {
-  console.log("-----Sign In-----");
-  const email = prompt("Type your email: ");
-  const password = prompt("Type your password: ");
+// function signIn() {
+//   console.log("-----Sign In-----");
+//   const email = prompt("Type your email: ");
+//   const password = prompt("Type your password: ");
   
-  firebase.auth().signInWithEmailAndPassword(email, password)
-  .then((result) => {
-    console.log("Signed in!");
-    sendBatteryInfo(batteryFlag);
+//   firebase.auth().signInWithEmailAndPassword(email, password)
+//   .then((result) => {
+//     console.log("Signed in!");
+//     sendBatteryInfo(batteryFlag);
 
-  }).catch((error) => {
-    console.log(error.message);
-  });
-}
+//   }).catch((error) => {
+//     console.log(error.message);
+//   });
+// }
 
-function register() {
-  console.log("-----Register-----");
-  const email = prompt("Type your email: ");
-  const password = prompt("Type your password: ");
+// function register() {
+//   console.log("-----Register-----");
+//   const email = prompt("Type your email: ");
+//   const password = prompt("Type your password: ");
 
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-  .then((result) => {
-    console.log("Account created!");
-    sendBatteryInfo(batteryFlag);
+//   firebase.auth().createUserWithEmailAndPassword(email, password)
+//   .then((result) => {
+//     console.log("Account created!");
+//     sendBatteryInfo(batteryFlag);
 
-  }).catch((error) => {
-    console.log(error.message);
-  });
-}
+//   }).catch((error) => {
+//     console.log(error.message);
+//   });
+// }
 
 
 /*Grunt functions for checking if device has a battery and extracting
