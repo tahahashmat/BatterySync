@@ -25,12 +25,28 @@ firebase.initializeApp(firebaseConfig);
 var email;
 var password;
 
-document.getElementById("loginButton").addEventListener("click", login);
-document.getElementById("loginButton").addEventListener("click", storeLoginDetailToLocalStorage);
+var el = document.getElementById("loginButton")
+if(el){
+  el.addEventListener("click", login);
+  el.addEventListener("click", storeLoginDetailToLocalStorage);
+}
 
 function getEmail(){
   return document.getElementById('email').value;
 }
+
+function getCurrentUserEmail(){
+
+  var user = firebase.auth().currentUser;
+  var email;
+
+  if (user != null) {
+    email = user.email;
+  }
+
+  return email;
+}
+
 
 function getPassword(){
   return document.getElementById('password').value;

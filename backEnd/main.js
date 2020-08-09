@@ -73,19 +73,19 @@ function getBatteryInfo(){
 
 }
 
-function getCurrentUserEmail() {
+// function getCurrentUserEmail() {
 
-  var user = firebase.auth().currentUser;
-  var email;
+//   var user = firebase.auth().currentUser;
+//   var email;
 
-  if (user != null) {
-    email = user.email;
-  }
+//   if (user != null) {
+//     email = user.email;
+//   }
 
-  return email;
-}
+//   return email;
+// }
 
-function getCurrentDateTime() {
+function getCurrentDateTime(){
   var today = new Date();
   var date = today.getDate() + '-' + (today.getMonth()+1) + '-' + today.getFullYear();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -95,34 +95,38 @@ function getCurrentDateTime() {
 }
 
 
-//Sends Battery Info to Firebase using POST IF battery is present (NO PCs)
-function sendBatteryInfo(batteryFlag) {
-  if (batteryFlag == true) {
-    var currentEmail = getCurrentUserEmail();
-    getBatteryInfo()
 
-    fetch('https://us-central1-batterysync-89680.cloudfunctions.net/api/updateBattery', {
-      method: 'POST',
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          email: currentEmail,
-          os: osName,
-          batteryPercentage: batteryPercent,
-          manufacturer: manufacturerName,
-          model: modelName,
-          serialNumber: serialNum,
-          timeUpdated: getCurrentDateTime()
+//Sends Battery Info to Firebase using POST IF battery is present (NO PCs)
+//made into module to be accessed by settingsPage.js
+module.exports = {
+  sendBatteryInfo: function(batteryFlag, email) {
+    if (batteryFlag == true) {
+      var currentEmail = email
+      getBatteryInfo()
+
+      fetch('https://us-central1-batterysync-89680.cloudfunctions.net/api/updateBattery', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: currentEmail,
+            os: osName,
+            batteryPercentage: batteryPercent,
+            manufacturer: manufacturerName,
+            model: modelName,
+            serialNumber: serialNum,
+            timeUpdated: getCurrentDateTime()
+        })
+    
+      }).then(()=> {
+        console.log("Battery info uploaded to Firebase")
+    
+      }).catch((thing)=> {
+        console.log(err)
       })
-  
-    }).then(()=> {
-      console.log("Battery info uploaded to Firebase")
-  
-    }).catch((thing)=> {
-      console.log(err)
-    })
+    }
   }
 }
 
