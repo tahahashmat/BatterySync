@@ -2,6 +2,7 @@ const electron = require('electron');
 const ipc = electron.ipcRenderer
 const child_process = require('child_process');
 // const email = require('./loginPage')
+const batteryReader = require('../../main')
 
 var email;
 
@@ -28,9 +29,7 @@ function showLoginPage(){
 function startSyncing(){
     //CHECK BATTERY FIRST AND SHOW ERROR BOX
     email = getEmailLocalStorage()
-    console.log(machineBatteryChecker())
-    console.log(email)
-    
+    batteryReader.sendBatteryInfo(true, email)
 }
 
 function stopSyncing(){
@@ -38,7 +37,7 @@ function stopSyncing(){
 }
 
 //Checks if the current machine has a battery, if false will show error and not send battery information
-function machineBatteryChecker(){
+function deviceBatteryChecker(){
     switch(process.platform){
         case "win32": return hasBattery("Windows");
         case "darwin": return hasBattery("MacOS");

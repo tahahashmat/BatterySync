@@ -49,20 +49,20 @@ var serialNum;
 function getBatteryInfo(){
     //Checks device OS
   switch (process.platform) {
-    case "win32":  osName = "Windows"; batteryFlag = hasBattery(osName);  break;
-    case "darwin": osName = "MacOS";   batteryFlag = hasBattery(osName);  break;
-    case "linux":  osName = "Linux";   batteryFlag = hasBattery(osName);  break;
+    case "win32":  osName = "Windows"; break;
+    case "darwin": osName = "MacOS"; break;
+    case "linux":  osName = "Linux"; break;
     default: console.log("OS could not be detected");              fail;  break; //ends the script
   }
 
   if (osName == "Windows") {
-    if (batteryFlag == true) { batteryPercent = getWindowsBattery(); }
+    batteryPercent = getWindowsBattery()
     manufacturerName = getWindowsManufacturer();
     modelName = getWindowsModel();
     serialNum = getWindowsSerialNum();
 
   } else if (osName == "MacOS") {
-    if (batteryFlag == true) { batteryPercent = getMacOSBattery(); }
+    batteryPercent = getMacOSBattery()
     manufacturerName = "Apple";
     modelName = getMacOSModel();   
   }
@@ -170,17 +170,17 @@ module.exports = {
 Current supported OS: Windows and Mac
 */
 //check if the device has battery, false means no battery
-function hasBattery(currentOS) {
-  var query;
-  if (currentOS == "Windows") {
-    query = child_process.execSync("wmic Path Win32_Battery get estimatedchargeremaining").toString();
-    if (typeof(query) == "undefined") { return false; } else { return true; }
+// function hasBattery(currentOS) {
+//   var query;
+//   if (currentOS == "Windows") {
+//     query = child_process.execSync("wmic Path Win32_Battery get estimatedchargeremaining").toString();
+//     if (typeof(query) == "undefined") { return false; } else { return true; }
 
-  } else if (currentOS == "MacOS") {
-    query = child_process.execSync('pmset -g batt | egrep "([0-9]+%).*" -o').toString();
-    if (typeof(query) == "undefined") { return false; } else { return true; }
-  }
-}
+//   } else if (currentOS == "MacOS") {
+//     query = child_process.execSync('pmset -g batt | egrep "([0-9]+%).*" -o').toString();
+//     if (typeof(query) == "undefined") { return false; } else { return true; }
+//   }
+// }
 
 //Windows Functions
 function getWindowsBattery() {
