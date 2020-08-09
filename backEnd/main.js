@@ -49,20 +49,20 @@ var serialNum;
 function getBatteryInfo(){
     //Checks device OS
   switch (process.platform) {
-    case "win32":  osName = "Windows"; batteryFlag = hasBattery(osName);  break;
-    case "darwin": osName = "MacOS";   batteryFlag = hasBattery(osName);  break;
-    case "linux":  osName = "Linux";   batteryFlag = hasBattery(osName);  break;
+    case "win32":  osName = "Windows"; break;
+    case "darwin": osName = "MacOS"; break;
+    case "linux":  osName = "Linux"; break;
     default: console.log("OS could not be detected");              fail;  break; //ends the script
   }
 
   if (osName == "Windows") {
-    if (batteryFlag == true) { batteryPercent = getWindowsBattery(); }
+    batteryPercent = getWindowsBattery()
     manufacturerName = getWindowsManufacturer();
     modelName = getWindowsModel();
     serialNum = getWindowsSerialNum();
 
   } else if (osName == "MacOS") {
-    if (batteryFlag == true) { batteryPercent = getMacOSBattery(); }
+    batteryPercent = getMacOSBattery()
     manufacturerName = "Apple";
     modelName = getMacOSModel();   
   }
@@ -73,19 +73,19 @@ function getBatteryInfo(){
 
 }
 
-function getCurrentUserEmail() {
+// function getCurrentUserEmail() {
 
-  var user = firebase.auth().currentUser;
-  var email;
+//   var user = firebase.auth().currentUser;
+//   var email;
 
-  if (user != null) {
-    email = user.email;
-  }
+//   if (user != null) {
+//     email = user.email;
+//   }
 
-  return email;
-}
+//   return email;
+// }
 
-function getCurrentDateTime() {
+function getCurrentDateTime(){
   var today = new Date();
   var date = today.getDate() + '-' + (today.getMonth()+1) + '-' + today.getFullYear();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -95,34 +95,38 @@ function getCurrentDateTime() {
 }
 
 
-//Sends Battery Info to Firebase using POST IF battery is present (NO PCs)
-function sendBatteryInfo(batteryFlag) {
-  if (batteryFlag == true) {
-    var currentEmail = getCurrentUserEmail();
-    getBatteryInfo()
 
-    fetch('https://us-central1-batterysync-89680.cloudfunctions.net/api/updateBattery', {
-      method: 'POST',
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          email: currentEmail,
-          os: osName,
-          batteryPercentage: batteryPercent,
-          manufacturer: manufacturerName,
-          model: modelName,
-          serialNumber: serialNum,
-          timeUpdated: getCurrentDateTime()
+//Sends Battery Info to Firebase using POST IF battery is present (NO PCs)
+//made into module to be accessed by settingsPage.js
+module.exports = {
+  sendBatteryInfo: function(batteryFlag, email) {
+    if (batteryFlag == true) {
+      var currentEmail = email
+      getBatteryInfo()
+
+      fetch('https://us-central1-batterysync-89680.cloudfunctions.net/api/updateBattery', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: currentEmail,
+            os: osName,
+            batteryPercentage: batteryPercent,
+            manufacturer: manufacturerName,
+            model: modelName,
+            serialNumber: serialNum,
+            timeUpdated: getCurrentDateTime()
+        })
+    
+      }).then(()=> {
+        console.log("Battery info uploaded to Firebase")
+    
+      }).catch((thing)=> {
+        console.log(err)
       })
-  
-    }).then(()=> {
-      console.log("Battery info uploaded to Firebase")
-  
-    }).catch((thing)=> {
-      console.log(err)
-    })
+    }
   }
 }
 
@@ -166,17 +170,17 @@ function sendBatteryInfo(batteryFlag) {
 Current supported OS: Windows and Mac
 */
 //check if the device has battery, false means no battery
-function hasBattery(currentOS) {
-  var query;
-  if (currentOS == "Windows") {
-    query = child_process.execSync("wmic Path Win32_Battery get estimatedchargeremaining").toString();
-    if (typeof(query) == "undefined") { return false; } else { return true; }
+// function hasBattery(currentOS) {
+//   var query;
+//   if (currentOS == "Windows") {
+//     query = child_process.execSync("wmic Path Win32_Battery get estimatedchargeremaining").toString();
+//     if (typeof(query) == "undefined") { return false; } else { return true; }
 
-  } else if (currentOS == "MacOS") {
-    query = child_process.execSync('pmset -g batt | egrep "([0-9]+%).*" -o').toString();
-    if (typeof(query) == "undefined") { return false; } else { return true; }
-  }
-}
+//   } else if (currentOS == "MacOS") {
+//     query = child_process.execSync('pmset -g batt | egrep "([0-9]+%).*" -o').toString();
+//     if (typeof(query) == "undefined") { return false; } else { return true; }
+//   }
+// }
 
 //Windows Functions
 function getWindowsBattery() {
