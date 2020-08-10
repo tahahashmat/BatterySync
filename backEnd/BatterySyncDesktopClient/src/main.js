@@ -34,18 +34,6 @@ var modelName = "Unknown";
 var manufacturerName = "Unknown";
 var serialNum;
 
-// const choice = prompt("Would you like to create an account or log in? Type create or log: ");
-
-// if (choice == "log") {
-//   signIn();
-
-// } else if (choice == "create") {
-//   register();
-
-// } else {
-//     fail;
-// }
-
 function getBatteryInfo(){
     //Checks device OS
   switch (process.platform) {
@@ -72,18 +60,6 @@ function getBatteryInfo(){
             + manufacturerName + "\nModel: " + modelName + "\nSerial Number: " + serialNum);
 
 }
-
-// function getCurrentUserEmail() {
-
-//   var user = firebase.auth().currentUser;
-//   var email;
-
-//   if (user != null) {
-//     email = user.email;
-//   }
-
-//   return email;
-// }
 
 function getCurrentDateTime(){
   var today = new Date();
@@ -130,38 +106,6 @@ module.exports = {
   }
 }
 
-
-// function signIn() {
-//   console.log("-----Sign In-----");
-//   const email = prompt("Type your email: ");
-//   const password = prompt("Type your password: ");
-  
-//   firebase.auth().signInWithEmailAndPassword(email, password)
-//   .then((result) => {
-//     console.log("Signed in!");
-//     sendBatteryInfo(batteryFlag);
-
-//   }).catch((error) => {
-//     console.log(error.message);
-//   });
-// }
-
-// function register() {
-//   console.log("-----Register-----");
-//   const email = prompt("Type your email: ");
-//   const password = prompt("Type your password: ");
-
-//   firebase.auth().createUserWithEmailAndPassword(email, password)
-//   .then((result) => {
-//     console.log("Account created!");
-//     sendBatteryInfo(batteryFlag);
-
-//   }).catch((error) => {
-//     console.log(error.message);
-//   });
-// }
-
-
 /*Grunt functions for checking if device has a battery and extracting
                                   Battery Percentage
                                   Manufacturer Name
@@ -169,18 +113,6 @@ module.exports = {
 
 Current supported OS: Windows and Mac
 */
-//check if the device has battery, false means no battery
-// function hasBattery(currentOS) {
-//   var query;
-//   if (currentOS == "Windows") {
-//     query = child_process.execSync("wmic Path Win32_Battery get estimatedchargeremaining").toString();
-//     if (typeof(query) == "undefined") { return false; } else { return true; }
-
-//   } else if (currentOS == "MacOS") {
-//     query = child_process.execSync('pmset -g batt | egrep "([0-9]+%).*" -o').toString();
-//     if (typeof(query) == "undefined") { return false; } else { return true; }
-//   }
-// }
 
 //Windows Functions
 function getWindowsBattery() {

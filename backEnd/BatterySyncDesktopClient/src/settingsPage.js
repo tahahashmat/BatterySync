@@ -1,8 +1,7 @@
 const electron = require('electron');
 const ipc = electron.ipcRenderer
 const child_process = require('child_process');
-// const email = require('./loginPage')
-const batteryReader = require('../../main')
+const batteryReader = require('./main')
 
 var email;
 
