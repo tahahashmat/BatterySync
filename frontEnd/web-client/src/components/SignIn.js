@@ -18,6 +18,13 @@ import lightkmodeName from ".././assets/lightModeName.png";
 import darkmodeLogo from ".././assets/darkModeLogo.png";
 import lightmodeLogo from ".././assets/lightModeLogo.png";
 
+
+import { AwesomeButton } from "react-awesome-button";
+import "react-awesome-button/dist/styles.css";
+
+import DarkModeToggle from "react-dark-mode-toggle";
+
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -47,6 +54,8 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [isDarkMode, setIsDarkMode] = useState(() => false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log( 'Email:', email, 'Password: ', password); 
@@ -62,6 +71,13 @@ export default function SignIn() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
+
+      <DarkModeToggle
+      onChange={setIsDarkMode}
+      checked={isDarkMode}
+      size={80}
+    />
+    
         <img className={classes.logo} src={lightmodeLogo} id="logo" />
         <Typography component="h1" variant="h5">
           Sign in
@@ -93,9 +109,13 @@ export default function SignIn() {
             value={password}
             onInput={(e) => setPassword(e.target.value)}
           />
+          <AwesomeButton
+        type="primary">
+          Sign In
+        </AwesomeButton>
 
           <Button
-            type="submit"
+            
             fullWidth
             variant="contained"
             color="primary"
