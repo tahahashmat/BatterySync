@@ -5,6 +5,19 @@ body {
   padding: 2rem;
   /* background-color: #2a2c2e; */
   background-color: #2B2D2F;
+  text-align: center;
+}
+
+h1{
+  color: #C2C5CC;
+  font-size: 50px;
+  text-align: center;
+  margin-top: 0px;
+}
+
+h2{
+  color: #ffa303;
+  font-size: 15px;
 }
 
 #battery-sync-title{
@@ -56,11 +69,46 @@ body {
   outline: none;
 }
 
+#buttons-div{
+  padding-top: 30px;
+}
+
+.syncing-button{
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  width: 60%;
+  background-color: #40444b;
+  color: #ffa303;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  outline: none;
+}
+
+#console{
+  background-color: #40444b;
+  color: red;
+  outline: none;
+}
+
+#console-div{
+  padding-top: 20px;
+}
+
+#logout-button{
+  font-size: 15px;
+  margin-top: 50px;
+  padding: 5px 20px 5px 20px;
+  background-color: #ffa303;
+  color: white;
+  outline: none;
+  border-radius: 20px;
+}
+
 .link{
   text-align: center;
   display: block;
   color: #ffa303;
-  margin-top: 10px;
+  margin-top: 30px;
   /* width: 100px; */
 }
 
@@ -69,12 +117,16 @@ body {
   left: 0;
   bottom: 0;
   width: 100%;
-  /* background-color: #000000; */
   text-align: center;
 }
 
 #tag-line{
   font-size: 100%;
   color: white;
-  /* color: #c2c5cc; */
+}
+
+#error-text{
+  color: red;
+  margin: auto;
+  padding-top: 2px;
 }
