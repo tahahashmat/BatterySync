@@ -99,7 +99,7 @@ module.exports = {
       }).then(()=> {
         console.log("Battery info uploaded to Firebase")
     
-      }).catch((thing)=> {
+      }).catch((err)=> {
         console.log(err)
       })
     }

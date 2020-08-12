@@ -25,27 +25,38 @@ firebase.initializeApp(firebaseConfig);
 var email;
 var password;
 
-var el = document.getElementById("loginButton")
-if(el){
-  el.addEventListener("click", login);
-  el.addEventListener("click", storeLoginDetailToLocalStorage);
+autoLogin()
+
+var temp1 = document.getElementById("loginButton")
+if(temp1){
+  temp1.addEventListener("click", login);
+  temp1.addEventListener("click", storeLoginDetailToLocalStorage);
+}
+
+var temp2 = document.getElementById('website_link')
+if(temp2){
+  temp2.onclick = function(event){
+    var shell = require('electron').shell;
+    event.preventDefault();
+    shell.openExternal('https://batterysync-89680.web.app/');
+  }
 }
 
 function getEmail(){
   return document.getElementById('email').value;
 }
 
-function getCurrentUserEmail(){
+// function getCurrentUserEmail(){
 
-  var user = firebase.auth().currentUser;
-  var email;
+//   var user = firebase.auth().currentUser;
+//   var email;
 
-  if (user != null) {
-    email = user.email;
-  }
+//   if (user != null) {
+//     email = user.email;
+//   }
 
-  return email;
-}
+//   return email;
+// }
 
 
 function getPassword(){
@@ -85,6 +96,22 @@ function login(){
 
 }
 
+function autoLogin(){
+  if(localStorage.getItem('EMAIL') != null && localStorage.getItem('PASSWORD') != null){
+    email = localStorage.getItem('EMAIL')
+    password = localStorage.getItem('PASSWORD')
+    document.getElementById('email').value = email
+    document.getElementById('password').value = password
+  }
+}
+
 function showSettingsWindow(){
   ipc.send('show-settings-window')
 }
+
+// var shell = require('electron').shell;
+// //open links externally by default
+// document.on('click', 'a[href^="http"]', function(event) {
+//     event.preventDefault();
+//     shell.openExternal(this.href);
+// });

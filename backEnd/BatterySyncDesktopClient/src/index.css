@@ -110,6 +110,8 @@ h2{
   color: #ffa303;
   margin-top: 30px;
   /* width: 100px; */
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .footer{
