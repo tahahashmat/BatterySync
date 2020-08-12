@@ -19,7 +19,7 @@ const createWindow = () => {
       nodeIntegration: true
     },
     width: 480,
-    height: 720,
+    height: 740,
     // icon: __dirname + '..\..\..\images\batterysync dark mode logo.png'
   })
   mainWindow.removeMenu();

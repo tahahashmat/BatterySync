@@ -42,6 +42,14 @@ if(temp2){
   }
 }
 
+//press enter to login
+document.addEventListener('keypress', function(event){
+  if(event.keyCode === 13){
+    event.preventDefault()
+    login()
+  }
+})
+
 function getEmail(){
   return document.getElementById('email').value;
 }
@@ -64,13 +72,13 @@ function getPassword(){
 }
 
 function storeLoginDetailToLocalStorage(){
-  console.log("LOCAL STORAGE :")
-  console.log(localStorage.getItem('EMAIL'));
-  console.log(localStorage.getItem('PASSWORD'));
+  // console.log("LOCAL STORAGE :")
+  // console.log(localStorage.getItem('EMAIL'));
+  // console.log(localStorage.getItem('PASSWORD'));
   email = getEmail();
   password = getPassword();
-  console.log("Email: " + email);
-  console.log("Password: " + password);
+  // console.log("Email: " + email);
+  // console.log("Password: " + password);
   localStorage.setItem('EMAIL', email);
   localStorage.setItem('PASSWORD', password);
 }
@@ -85,13 +93,20 @@ function login(){
     showSettingsWindow();
     console.log("Login succesful")
   }).catch((error) => {
-    var para = document.createElement("p");
-    para.setAttribute("id", "error-text");
-    var node = document.createTextNode(error);
-    para.appendChild(node);
-    var element = document.getElementById("login-button-div")
-    var child = document.getElementById("loginButton");
-    element.insertBefore(para, child);
+    if(document.getElementById("error-text") == undefined){
+      console.log('this' + error)
+      var para = document.createElement('p')
+      para.setAttribute('id', 'error-text')
+      para.textContent = error
+      var element = document.getElementById("login-button-div")
+      var child = document.getElementById("loginButton");
+      element.insertBefore(para, child)
+    }
+    else{
+      var para = document.getElementById('error-text')
+      para.textContent = error
+      console.log('that' + error)
+    }
   });
 
 }
@@ -108,10 +123,3 @@ function autoLogin(){
 function showSettingsWindow(){
   ipc.send('show-settings-window')
 }
-
-// var shell = require('electron').shell;
-// //open links externally by default
-// document.on('click', 'a[href^="http"]', function(event) {
-//     event.preventDefault();
-//     shell.openExternal(this.href);
-// });
