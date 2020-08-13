@@ -90,7 +90,7 @@ h2{
   outline: none;
 }
 
-#console-div{
+#status-div{
   padding-top: 20px;
 }
 
@@ -131,4 +131,9 @@ h2{
   color: red;
   margin: auto;
   padding-top: 2px;
+}
+
+#status{
+  color: red;
+  font-size: 25px;
 }

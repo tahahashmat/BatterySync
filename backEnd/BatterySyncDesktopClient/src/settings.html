@@ -9,11 +9,12 @@
         <h1>Settings</h1>
         <div id="buttons-div">
             <button id="start-syncing-button" class="syncing-button">Start Syncing</button>
-            <button id="stop-syncing-button" class="syncing-button">Stop Syncing</button>
+            <button id="stop-syncing-button" class="syncing-button" disabled=true>Stop Syncing</button>
         </div>
-        <div id="console-div">
-            <h2>Console: </h2>
-            <textarea name="console" id="console" cols="30" rows="4" readonly></textarea>
+        <div id="status-div">
+            <h2>Status: </h2>
+            <p id="status">SYNCING</p>
+            <!-- <textarea name="console" id="console" cols="30" rows="4" readonly></textarea> -->
         </div>
         <div>
             <button id="logout-button" class="button" type="button" name="Logout">Logout</button>
