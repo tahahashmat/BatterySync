@@ -29,10 +29,10 @@ function startSyncing(){
     //CHECK BATTERY FIRST AND SHOW ERROR BOX
     document.getElementById("start-syncing-button").disabled = true;
     document.getElementById("stop-syncing-button").disabled = false;
-    email = getEmailLocalStorage()
-    interval = setInterval(batteryReader.sendBatteryInfo(true, email), '20000')
-    var status = document.getElementById('status')
-    status.style.color = 'green'
+    email = getEmailLocalStorage();
+    interval = setInterval(batteryReader.sendBatteryInfo(true, email), '2000'); //doesnt interval, runs once only
+    var status = document.getElementById('status');
+    status.style.color = 'green';
 }
 
 function stopSyncing(){

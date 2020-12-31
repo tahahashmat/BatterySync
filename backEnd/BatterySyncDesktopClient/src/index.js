@@ -3,8 +3,8 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const { settings } = require('cluster');
 const { electronProcess } = require('process');
-const ipc = electron.ipcMain
-const dialog = electron.dialog
+const ipc = electron.ipcMain;
+const dialog = electron.dialog;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require

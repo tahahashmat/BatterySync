@@ -34,6 +34,8 @@ var modelName = "Unknown";
 var manufacturerName = "Unknown";
 var serialNum;
 
+getBatteryInfo();
+
 function getBatteryInfo(){
     //Checks device OS
   switch (process.platform) {
@@ -52,7 +54,8 @@ function getBatteryInfo(){
   } else if (osName == "MacOS") {
     batteryPercent = getMacOSBattery()
     manufacturerName = "Apple";
-    modelName = getMacOSModel();   
+    modelName = getMacOSModel();  
+    serialNum = getMacOSSerialNum(); 
   }
 
   //Outputs current device and battery info
@@ -158,4 +161,12 @@ function getMacOSModel() {
   modelName = tempArray[0];
 
   return modelName;
+}
+
+function getMacOSSerialNum() {
+  var query = child_process.execSync('ioreg -l | grep IOPlatformSerialNumber').toString();
+  var tempArray = query.split("=");
+  serialNum = tempArray[1].substring(2, 14);
+
+  return serialNum.trim();
 }
