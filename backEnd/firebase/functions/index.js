@@ -42,7 +42,6 @@ const getAllBatteries = (req,res) => {
         
         .catch(thing => {
         response.json({ message: "not cool"})})
-
 }
 
 

@@ -4,14 +4,17 @@ const child_process = require('child_process');
 const batteryReader = require('./main')
 
 var email;
-var interval
 
 document.getElementById("start-syncing-button").addEventListener("click", function(){
-    startSyncing()
+    startSyncing();
+    interval = setInterval(() => {
+        batteryReader.sendBatteryInfo(true, email);
+    }, 60*1000);
 })
 
 document.getElementById("stop-syncing-button").addEventListener("click", function(){
-    stopSyncing()
+    clearInterval(interval);
+    stopSyncing();
 })
 
 document.getElementById("logout-button").addEventListener("click", function(){
@@ -30,7 +33,6 @@ function startSyncing(){
     document.getElementById("start-syncing-button").disabled = true;
     document.getElementById("stop-syncing-button").disabled = false;
     email = getEmailLocalStorage();
-    interval = setInterval(batteryReader.sendBatteryInfo(true, email), '2000'); //doesnt interval, runs once only
     var status = document.getElementById('status');
     status.style.color = 'green';
 }
@@ -38,7 +40,6 @@ function startSyncing(){
 function stopSyncing(){
     document.getElementById("start-syncing-button").disabled = false;
     document.getElementById("stop-syncing-button").disabled = true;
-    clearInterval(interval)
     var status = document.getElementById('status')
     status.style.color = 'red'
 }

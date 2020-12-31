@@ -1,5 +1,5 @@
 const electron = require('electron');
-const ipc = electron.ipcRenderer
+const ipc = electron.ipcRenderer;
 
 //firebase shit
 var firebase = require("firebase/app");
@@ -72,13 +72,8 @@ function getPassword(){
 }
 
 function storeLoginDetailToLocalStorage(){
-  // console.log("LOCAL STORAGE :")
-  // console.log(localStorage.getItem('EMAIL'));
-  // console.log(localStorage.getItem('PASSWORD'));
   email = getEmail();
   password = getPassword();
-  // console.log("Email: " + email);
-  // console.log("Password: " + password);
   localStorage.setItem('EMAIL', email);
   localStorage.setItem('PASSWORD', password);
 }
